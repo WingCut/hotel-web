@@ -40,12 +40,12 @@ const schema = yup.object().shape({
 
 const Edit = () => {
   const { _id } = useParams();
-  const [room, setRoom] = useState();
 
   const { control, handleSubmit, setValue } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
   });
+
   const fetchData = async () => {
     const data = await axiosClient.get(`/rooms/${_id}`);
     setValue("name", data.data.data.room.name);

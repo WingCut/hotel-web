@@ -2,16 +2,24 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../assets/api/axios.client";
 import { useParams } from "react-router-dom";
 
-import { BiBed } from "react-icons/bi";
-import { BiBath } from "react-icons/bi";
-import { FiTv } from "react-icons/fi";
-import { FaCocktail } from "react-icons/fa";
-import { TbWindow } from "react-icons/tb";
-
 import RoomDetail from "../Rooms/RoomDetail";
 import Input from "../input/input";
 import Button from "../button/Button";
 
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const defaultValues = {
+  name: "",
+  bed: "",
+  bath: "",
+  tivi: "",
+  bar: "",
+  window: "",
+  price: 0,
+  cover: "",
+};
 const SubmitForm = () => {
   return (
     <>

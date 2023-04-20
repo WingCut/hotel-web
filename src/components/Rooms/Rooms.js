@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axiosClient from "../assets/api/axios.client.js";
+import Search from "./Search.js";
+import { useForm } from "react-hook-form";
 
+import { BiSearch } from "react-icons/bi";
 import { BiBed } from "react-icons/bi";
 import { BiBath } from "react-icons/bi";
 import { FiTv } from "react-icons/fi";
@@ -8,17 +11,26 @@ import { FaCocktail } from "react-icons/fa";
 import { TbWindow } from "react-icons/tb";
 import { SlPencil } from "react-icons/sl";
 import { MdOutlineDelete } from "react-icons/md";
-import { BiSearch } from "react-icons/bi";
 
+import Input from "../input/input";
 import { Link } from "react-router-dom";
-import Input from "../input/input.js";
 import Button from "../button/Button.js";
 
+const defaultValues = {
+  search: "",
+};
+
 const Rooms = () => {
+  const { control, handleSubmit, setValue } = useForm({
+    defaultValues,
+  });
+
+  const [searchRoom, setSearchRoom] = useState("");
   const [rooms, setRooms] = useState();
+
   const fetchData = async () => {
     const data = await axiosClient.get("/rooms");
-    setRooms(data.data.data.rooms);
+    setRooms(data.data.data.room);
   };
 
   React.useEffect(() => {
@@ -34,22 +46,36 @@ const Rooms = () => {
     }
   };
 
+  const handleSearch = async (value) => {
+    console.log(value);
+    if (value.search) {
+      const data = await axiosClient.get(`/rooms?searchText=${value.search}`);
+      setRooms(data.data.data.room);
+    } else {
+      fetchData();
+    }
+  };
   return (
     <>
       <div className="grid grid-cols-2">
-        {/*<Input
-          label={<BiSearch size={35} />}
-          type="search"
-          placeholder="Search for a room"
-          control={control}
-  />*/}
+        <form onSubmit={handleSubmit(handleSearch)}>
+          <Input
+            type="text"
+            name="search"
+            placeholder="Search for a room"
+            control={control}
+          />
+          <Button type="submit">
+            <BiSearch size={35} />
+          </Button>
+        </form>
         <div className="col-end-7 col-span-3 m-6 py-2 pl-5 pr-3 bg-green-300 hover:bg-green-500 cursor-pointer rounded-lg">
           <Link to={`/create`} className="text-white text-xl">
             Create Room
           </Link>
         </div>
       </div>
-      <main className="grid grid-cols-3 sm:grid-cols-1 ">
+      <main className="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-1 ">
         {rooms &&
           rooms.map((room) => (
             <div className="box card m-5">
