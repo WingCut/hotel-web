@@ -7,18 +7,21 @@ import EditForm from "./components/forms/editForm";
 import SubmitForm from "./components/forms/submitForm";
 import RoomDetail from "./components/Rooms/RoomDetail";
 
+import Home from "./components/home/home";
+
 function App() {
   return (
     <>
       <Header />
-      <Router>
+      <Home />
+      {/*<Router>
         <Routes>
-          <Route path="/" element={<Rooms />}></Route>
-          <Route path="/create" element={<CreateForm />}></Route>
-          <Route path="/:_id" element={<RoomDetail />}></Route>
-          <Route path="/edit/:_id" element={<EditForm />}></Route>
+           <Route path="/" element={<Rooms />}></Route>
+           <Route path="/create" element={<CreateForm />}></Route>
+           <Route path="/:_id" element={<RoomDetail />}></Route>
+           <Route path="/edit/:_id" element={<EditForm />}></Route>
         </Routes>
-      </Router>
+      </Router> */}
       <Footer />
     </>
   );

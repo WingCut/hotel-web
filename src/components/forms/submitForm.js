@@ -16,36 +16,48 @@ const defaultValues = {
   bath: "",
   tivi: "",
   bar: "",
-  window: "",
-  price: 0,
-  cover: "",
 };
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  bed: yup.string().required(),
+  bath: yup.string().required(),
+  tivi: yup.string().required(),
+  bar: yup.string().required(),
+});
 const SubmitForm = () => {
+  const { control, handleSubmit, setValue } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
   return (
     <>
       <div>
-        <RoomDetail />
+        {/*<RoomDetail />*/}
         <div className="mx-5 md:mx-20">
           <Input
             type="text"
             label="Full Name"
+            name="name"
             placholder="full name"
-            //control={control}
+            control={control}
           />
           <Input
-            type="number"
+            type="text"
             label="Phone"
+            name="bed"
             placholder="Enter Phone"
-            //control={control}
+            control={control}
           />
           <Input
-            type="email"
+            type="text"
             label="Email"
+            name="bath"
             placholder="Enter Email"
-            //control={control}
+            control={control}
           />
-          <Input type="Date" label="Start Day" />
-          <Input type="text" label="Number Peoples" />
+          <Input type="text" name="tivi" label="Start Day" />
+          <Input type="text" name="bar" label="Number Peoples" />
           <div className="flex justify-center">
             <Button
               className="mx-3 p-3 px-8 bg-regal-green hover:bg-green-500 rounded-lg"

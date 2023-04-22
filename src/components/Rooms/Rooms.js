@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axiosClient from "../assets/api/axios.client.js";
-import Search from "./Search.js";
 import { useForm } from "react-hook-form";
 
 import { BiSearch } from "react-icons/bi";
@@ -25,7 +24,6 @@ const Rooms = () => {
     defaultValues,
   });
 
-  const [searchRoom, setSearchRoom] = useState("");
   const [rooms, setRooms] = useState();
 
   const fetchData = async () => {
@@ -58,7 +56,10 @@ const Rooms = () => {
   return (
     <>
       <div className="grid grid-cols-2">
-        <form onSubmit={handleSubmit(handleSearch)}>
+        <form
+          className="justify-center flex"
+          onSubmit={handleSubmit(handleSearch)}
+        >
           <Input
             type="text"
             name="search"
