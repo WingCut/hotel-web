@@ -5,7 +5,12 @@
 .menu li:hover {
   color: darkgreen;
 }
-/* body {
+
+.bg-img {
+  background-image: url(https://file.hstatic.net/1000067077/file/20200509_181346_e97dfff896dd44c9a25cc196bf381497.jpg);
+}
+
+body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -17,4 +22,4 @@
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-} */
+}
