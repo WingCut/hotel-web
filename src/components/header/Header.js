@@ -1,7 +1,10 @@
 import React from "react";
 import logo from "../assets/images/logo.png";
+import { navBar } from "../assets/data/data";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
+  const activeNavLink = ({ isActive }) => (isActive ? "active" : "NavLink");
   return (
     <>
       <header className=" w-screen h-[8vh] md:shadow-lg bg-white">
@@ -12,10 +15,16 @@ const Header = () => {
           </div>
           <div className="menu">
             <ul className="flex ">
-              <li className="mx-6 py-3 cursor-pointer">Home</li>
-              <li className="mx-6 py-3 cursor-pointer">Rooms</li>
-              <li className="mx-6 py-3 cursor-pointer">Offers</li>
-              <li className="mx-6 py-3 cursor-pointer">Contact</li>
+              {navBar.map((list, i) => (
+                <li
+                  className={`mx-6 py-3  cursor-pointer ${activeNavLink}`}
+                  key={i}
+                >
+                  <NavLink className="p-1.5 px-2 rounded-lg" to={list.path}>
+                    {list.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../input/input";
 import Button from "../button/Button";
 import axiosClient from "../assets/api/axios.client";
@@ -44,6 +44,15 @@ const CreateForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const [image, setImage] = useState();
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    file.preview = URL.createObjectURL(file);
+    setImage(file);
+    console.log(file.preview);
+  };
+
   const handleCreateFrom = async (value) => {
     await axiosClient.post("/rooms", value);
   };
@@ -70,10 +79,12 @@ const CreateForm = () => {
               />
               <Input
                 label={<ImFilePicture size={35} />}
-                type="text"
+                type="file"
                 name="cover"
+                onChange={handleImage}
                 control={control}
               />
+              {image && <img src={image.preview} alt="room" width={"10%"} />}
             </div>
             <div>
               <Button
