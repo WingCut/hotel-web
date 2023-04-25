@@ -3,6 +3,7 @@ import Input from "../input/input";
 import Button from "../button/Button";
 import axiosClient from "../assets/api/axios.client";
 import { useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { BiBed } from "react-icons/bi";
 import { BiBath } from "react-icons/bi";
@@ -45,7 +46,7 @@ const Edit = () => {
     defaultValues,
     resolver: yupResolver(schema),
   });
-
+  const navigate = useNavigate();
   const fetchData = async () => {
     const data = await axiosClient.get(`/rooms/${_id}`);
     setValue("name", data.data.data.room.name);
@@ -63,8 +64,10 @@ const Edit = () => {
   }, [_id]);
 
   const handleEditFrom = async (value) => {
-    await axiosClient.patch(`/rooms/${_id}`, value);
+    await axiosClient.patch(`/rooms/edit/${_id}`, value);
+    alert("Sửa phòng thành công");
     fetchData();
+    navigate("/rooms");
   };
 
   return (
@@ -101,12 +104,12 @@ const Edit = () => {
               >
                 Submit
               </Button>
-              <Button
+              <Link
+                to={"/rooms"}
                 className="p-3 px-8 bg-red-300 hover:bg-red-500 rounded-lg"
-                type="submit"
               >
                 Cancel
-              </Button>
+              </Link>
             </div>
           </div>
           <div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Input from "../input/input";
 import Button from "../button/Button";
 import axiosClient from "../assets/api/axios.client";
+import { Link, useNavigate } from "react-router-dom";
 
 import { BiBed } from "react-icons/bi";
 import { BiBath } from "react-icons/bi";
@@ -35,7 +36,7 @@ const schema = yup.object().shape({
   bar: yup.string().required(),
   window: yup.string().required(),
   price: yup.number().min(100).required(),
-  cover: yup.string().required(),
+  cover: yup.string(),
 });
 
 const CreateForm = () => {
@@ -44,6 +45,7 @@ const CreateForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const navigate = useNavigate();
   const [image, setImage] = useState();
 
   const handleImage = (e) => {
@@ -55,6 +57,8 @@ const CreateForm = () => {
 
   const handleCreateFrom = async (value) => {
     await axiosClient.post("/rooms", value);
+    alert("Tạo phòng thành công");
+    navigate("/rooms");
   };
 
   return (
@@ -81,7 +85,6 @@ const CreateForm = () => {
                 label={<ImFilePicture size={35} />}
                 type="file"
                 name="cover"
-                onChange={handleImage}
                 control={control}
               />
               {image && <img src={image.preview} alt="room" width={"10%"} />}
@@ -93,12 +96,12 @@ const CreateForm = () => {
               >
                 Submit
               </Button>
-              <Button
+              <Link
+                to={"/rooms"}
                 className="p-3 px-8 bg-red-300 hover:bg-red-500 rounded-lg"
-                type="submit"
               >
                 Cancel
-              </Button>
+              </Link>
             </div>
           </div>
 

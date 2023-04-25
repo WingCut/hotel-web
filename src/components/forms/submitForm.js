@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axiosClient from "../assets/api/axios.client";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import RoomDetail from "../Rooms/RoomDetail";
 import Input from "../input/input";
 import Button from "../button/Button";
 
@@ -12,28 +12,42 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const defaultValues = {
   name: "",
-  bed: "",
-  bath: "",
-  tivi: "",
-  bar: "",
+  phone: "",
+  email: "",
+  day: "",
+  number: "",
 };
 const schema = yup.object().shape({
   name: yup.string().required(),
-  bed: yup.string().required(),
-  bath: yup.string().required(),
-  tivi: yup.string().required(),
-  bar: yup.string().required(),
+  phone: yup.string().required(),
+  email: yup.string().required(),
+  day: yup.string().required(),
+  number: yup.number().required(),
 });
 const SubmitForm = () => {
-  const { control, handleSubmit, setValue } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
   });
 
+  const { _id } = useParams();
+
+  const fetchData = async () => {
+    const data = await axiosClient.get(`/rooms/${_id}`);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [_id]);
+
+  const handleOder = async () => {
+    await axiosClient.patch(`/rooms/${_id}`);
+    fetchData();
+  };
+
   return (
     <>
-      <div>
-        {/*<RoomDetail />*/}
+      <form onSubmit={handleSubmit(handleOder)}>
         <div className="mx-5 md:mx-20">
           <Input
             type="text"
@@ -45,19 +59,24 @@ const SubmitForm = () => {
           <Input
             type="text"
             label="Phone"
-            name="bed"
+            name="phone"
             placholder="Enter Phone"
             control={control}
           />
           <Input
-            type="text"
+            type="email"
             label="Email"
-            name="bath"
+            name="email"
             placholder="Enter Email"
             control={control}
           />
-          <Input type="text" name="tivi" label="Start Day" />
-          <Input type="text" name="bar" label="Number Peoples" />
+          <Input type="text" name="day" label="Start Day" control={control} />
+          <Input
+            type="number"
+            name="number"
+            label="Number Peoples"
+            control={control}
+          />
           <div className="flex justify-center">
             <Button
               className="mx-3 p-3 px-8 bg-regal-green hover:bg-green-500 rounded-lg"
@@ -65,15 +84,16 @@ const SubmitForm = () => {
             >
               Submit
             </Button>
-            <Button
+            <Link
+              to={"/rooms"}
               className="p-3 px-8 bg-red-300 hover:bg-red-500 rounded-lg"
               type="submit"
             >
               Cancel
-            </Button>
+            </Link>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };

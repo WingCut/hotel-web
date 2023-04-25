@@ -38,6 +38,7 @@ const Rooms = () => {
   const handleDelete = async (_id) => {
     try {
       await axiosClient.delete(`/rooms/${_id}`);
+      alert("Xóa thành công");
       fetchData();
     } catch (error) {
       alert(error.response.data.message);
@@ -53,6 +54,7 @@ const Rooms = () => {
       fetchData();
     }
   };
+
   return (
     <>
       <div className="grid grid-cols-2">
@@ -70,7 +72,7 @@ const Rooms = () => {
             <BiSearch size={35} />
           </Button>
         </form>
-        <div className="col-end-7 col-span-3 m-6 py-2 pl-5 pr-3 bg-green-300 hover:bg-green-500 cursor-pointer rounded-lg">
+        <div className="col-end-7 col-span-3 m-6 py-2 pl-5 pr-3 bg-green-700 hover:bg-green-500 cursor-pointer rounded-lg">
           <Link to={`/create`} className="text-white text-xl">
             Create Room
           </Link>
@@ -90,10 +92,13 @@ const Rooms = () => {
               <div>
                 <h1 className=" text-3xl my-2 text-regal-green font-medium">
                   {room.name}
-                  {/*<span className="text-xl text-white p-1 ml-2 bg-red-500 rounded-lg">
-                    Sold-out
-                  </span>*/}
+                  {room.status && (
+                    <span className="text-white text-2xl rounded-lg ml-3 bg-red-400 ">
+                      Sold Out
+                    </span>
+                  )}
                 </h1>
+
                 <ul className="p-3">
                   <li className="flex mb-1">
                     <BiBed size={30} /> <p className="p-1">{room.bed}</p>
@@ -115,12 +120,21 @@ const Rooms = () => {
               </div>
               <div className="flex justify-between">
                 <div className="flex">
-                  <Link
-                    to={`/${room._id}`}
-                    className="text-white mt-3 p-2 md:p-3 sm:p-2 bg-[#28a745] hover:bg-green-400 rounded-lg"
-                  >
-                    Book Now
-                  </Link>
+                  {!room.status ? (
+                    <Link
+                      to={`/${room._id}`}
+                      className="text-white mt-3 p-2 md:p-3 sm:p-2 bg-[#28a745] hover:bg-green-400 rounded-lg"
+                    >
+                      Book Now
+                    </Link>
+                  ) : (
+                    <Button
+                      onclick={() => alert("Phòng đã có người đặt")}
+                      className="text-white mt-3 p-2 md:p-3 sm:p-2 bg-[#28a745] hover:bg-green-400 rounded-lg"
+                    >
+                      Book Now
+                    </Button>
+                  )}
                   <div className="mt-3 ml-2">
                     <h3 className="text-red-900">Price</h3>
                     <p className="font-bold">${room.price} Per night</p>

@@ -2,6 +2,8 @@ import React from "react";
 import Button from "../button/Button";
 import { offers } from "../assets/data/data";
 const Offers = () => {
+  const handleColor = () =>
+    offers.filter((i) => i.id % 2 === 0) ? "bg-[#b0f1c3]" : "";
   return (
     <>
       <div className="md:mx-40">
@@ -14,10 +16,9 @@ const Offers = () => {
           consectetur, adipisci velit, sed quia non numquam eius modi tempora.
         </p>
       </div>
-      {offers.map((list, i) => (
+      {offers.map((list) => (
         <div
-          className="md:flex p-4 justify-center md:mx-36 bg-[#b0f1c3] rounded-3xl"
-          key={i}
+          className={`md:flex p-4 justify-center md:mx-36 bg-[#b0f1c3] ${handleColor} rounded-3xl`}
         >
           <img
             src={list.image}

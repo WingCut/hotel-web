@@ -7,6 +7,7 @@ import { BiBath } from "react-icons/bi";
 import { FiTv } from "react-icons/fi";
 import { FaCocktail } from "react-icons/fa";
 import { TbWindow } from "react-icons/tb";
+import SubmitForm from "../forms/submitForm";
 
 import Input from "../input/input";
 import Button from "../button/Button";
@@ -65,6 +66,7 @@ const RoomDetail = () => {
           </div>
         </div>
       )}
+      <SubmitForm />
     </>
   );
 };

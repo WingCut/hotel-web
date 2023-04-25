@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Rooms from "./components/Rooms/Rooms";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
 import Layout from "./components/layout/Layout";
 import Offers from "./components/offers/offers";
 import Contact from "./components/contact/Contact";
@@ -45,7 +43,7 @@ function App() {
             path="/contact"
             element={
               <Layout>
-                <Contact />
+                <SubmitForm />
               </Layout>
             }
           ></Route>
