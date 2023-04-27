@@ -83,7 +83,7 @@ const CreateForm = () => {
               />
               <Input
                 label={<ImFilePicture size={35} />}
-                type="file"
+                type="text"
                 name="cover"
                 control={control}
               />

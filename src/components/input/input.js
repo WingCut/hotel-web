@@ -4,15 +4,15 @@ import { useController } from "react-hook-form";
 const Input = (props) => {
   const { label, type, name, placeholder, control } = props;
   const { field, fieldState } = useController({ name, control });
-  const [image, setImage] = useState();
-  if (type === "file") {
-    field.onChange = (e) => {
-      const file = e.target.files[0];
-      file.preview = URL.createObjectURL(file);
-      setImage(file);
-      console.log(file.preview);
-    };
-  }
+  // const [image, setImage] = useState();
+  // if (type === "file") {
+  //   field.onChange = (e) => {
+  //     const file = e.target.files[0];
+  //     file.preview = URL.createObjectURL(file);
+  //     setImage(file);
+  //     console.log(file.preview);
+  //   };
+  // }
   return (
     <>
       <div className="my-6">
@@ -29,7 +29,7 @@ const Input = (props) => {
           {fieldState.error && fieldState.error.message}
         </span>
       </div>
-      {image && <img src={image.preview} alt="room" width={"10%"} />}
+      {/*image && <img src={image.preview} alt="room" width={"10%"} />*/}
     </>
   );
 };

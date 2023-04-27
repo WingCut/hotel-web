@@ -5,7 +5,6 @@ import Offers from "./components/offers/offers";
 import Contact from "./components/contact/Contact";
 import CreateForm from "./components/forms/createForm";
 import EditForm from "./components/forms/editForm";
-import SubmitForm from "./components/forms/submitForm";
 import RoomDetail from "./components/Rooms/RoomDetail";
 
 import Home from "./components/home/home";
@@ -43,7 +42,7 @@ function App() {
             path="/contact"
             element={
               <Layout>
-                <SubmitForm />
+                <Contact />
               </Layout>
             }
           ></Route>

@@ -87,7 +87,6 @@ const SubmitForm = () => {
             <Link
               to={"/rooms"}
               className="p-3 px-8 bg-red-300 hover:bg-red-500 rounded-lg"
-              type="submit"
             >
               Cancel
             </Link>
